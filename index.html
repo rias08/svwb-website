@@ -200,6 +200,20 @@ dialog#lightbox::backdrop{background:rgba(30,27,75,.72)}
 .alum .meta{font-size:.9rem;color:var(--muted)}
 .alum .company{font-weight:600}
 .alum .sector{font-size:.78rem;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--sky-soft);color:var(--sky-deep)}
+/* impact counters (home) */
+.impact{padding-block:48px 0}
+.impact-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+@media (max-width:720px){.impact-row{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.impact-item{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 16px;text-align:center;display:flex;flex-direction:column;gap:4px}
+.impact-item .num{font-family:var(--display);font-weight:800;font-size:clamp(2rem,5vw,2.8rem);line-height:1;color:var(--sky-deep);font-variant-numeric:tabular-nums}
+.impact-item .lbl{font-family:var(--display);font-weight:600;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.impact-note{margin:14px auto 0;text-align:center;font-size:.92rem;color:var(--muted)}
+/* skills grid (students) */
+.skills{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;list-style:none;margin:0;padding:0}
+@media (max-width:900px){.skills{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.skills li{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;align-items:center;gap:12px;font-family:var(--display);font-weight:600;font-size:.95rem;transition:transform .25s,box-shadow .25s,border-color .25s}
+.skills li:hover{transform:translateY(-4px);box-shadow:0 12px 26px rgba(30,27,75,.10);border-color:var(--sky)}
+.skills .ic{flex:0 0 40px;height:40px;border-radius:12px;background:var(--sky-soft);color:var(--sky-deep);display:grid;place-items:center}
 footer .wrap{align-items:flex-end}
 .foot-brand{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
 .foot-logo{display:block;background:transparent;padding:0;transition:transform .25s}
@@ -315,6 +329,18 @@ footer a{color:var(--sky-deep)}
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="impact" aria-label="Our impact so far">
+    <div class="wrap">
+      <div class="impact-row">
+        <div class="impact-item"><span class="num" data-count="488">488</span><span class="lbl">Students</span></div>
+        <div class="impact-item"><span class="num" data-count="7">7</span><span class="lbl">Cities</span></div>
+        <div class="impact-item"><span class="num" data-count="41">41</span><span class="lbl">Universities</span></div>
+        <div class="impact-item"><span class="num" data-count="53">53</span><span class="lbl">Projects</span></div>
+      </div>
+      <p class="impact-note">Israel · Singapore · Silicon Valley · Stockholm · Chicago · Ulsan · New York</p>
     </div>
   </section>
 
@@ -450,6 +476,21 @@ footer a{color:var(--sky-deep)}
         <li><h3>Build with a mentor</h3><p>Work with a partner company, guided by an industry mentor.</p></li>
         <li><h3>Show your work</h3><p>Finished projects can be featured, and you can join the talent pool.</p></li>
       </ol>
+    </div>
+  </section>
+  <section style="padding-top:0">
+    <div class="wrap stack" style="gap:24px">
+      <div class="stack" style="gap:8px"><span class="eyebrow">Why join</span><h2>Skills you'll build</h2></div>
+      <ul class="skills">
+        <li><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></span>Communication</li>
+        <li><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M12 16v4M8 20h8M7 12l3-3 2 2 4-4"/></svg></span>Presentation skills</li>
+        <li><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>Time management</li>
+        <li><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span>Deliverable quality</li>
+        <li><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>Analytical skills &amp; business acumen</li>
+        <li><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg></span>Commitment &amp; initiative</li>
+        <li><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.3-6 6.5-6s5.9 2.4 6.5 6"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14c2 .8 3.2 3 3.5 6"/></svg></span>Interpersonal &amp; management skills</li>
+        <li><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21V11"/><path d="M12 11c0-4 3-7 8-7 0 5-3 7-8 7zM12 14c0-3-2.5-5.5-7-5.5 0 4 2.5 5.5 7 5.5z"/></svg></span>Personal growth</li>
+      </ul>
     </div>
   </section>
   <section class="band">
@@ -787,6 +828,18 @@ track.addEventListener("scroll", () => {
 track.addEventListener("keydown", e => { if (e.key === "ArrowRight") go(cur + 1); if (e.key === "ArrowLeft") go(cur - 1); });
 mark();
 
+
+/* impact counters: count up once when they scroll into view */
+if (!matchMedia("(prefers-reduced-motion: reduce)").matches && "IntersectionObserver" in window) {
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    io.unobserve(e.target);
+    const el = e.target, end = +el.dataset.count, t0 = performance.now();
+    const tick = t => { const k = Math.min(1, (t - t0) / 1200); el.textContent = Math.round(end * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(tick); };
+    requestAnimationFrame(tick);
+  }), { threshold: .6 });
+  document.querySelectorAll("[data-count]").forEach(el => { el.textContent = "0"; io.observe(el); });
+}
 
 /* alumni: name, position, company, and a sector tag (leave sector "" to hide it) */
 const ALUMNI = [

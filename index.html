@@ -201,7 +201,7 @@ dialog#lightbox::backdrop{background:rgba(30,27,75,.72)}
 .alum .company{font-weight:600}
 .alum .sector{font-size:.78rem;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--sky-soft);color:var(--sky-deep)}
 /* impact counters (home) */
-.impact{padding-block:48px 0}
+.impact{padding-block:28px 0}
 .impact-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
 @media (max-width:720px){.impact-row{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .impact-item{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 16px;text-align:center;display:flex;flex-direction:column;gap:4px}
@@ -314,24 +314,6 @@ footer a{color:var(--sky-deep)}
     <svg class="sunset" viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 80 C 300 10, 900 10, 1200 80 Z" fill="#F5A524" opacity=".18"/><path d="M0 80 C 350 35, 850 35, 1200 80 Z" fill="#2F6FB8" opacity=".14"/></svg>
   </section>
 
-  <section class="band" id="videos">
-    <div class="wrap">
-      <div class="sec-head">
-        <h2>Latest videos</h2>
-      </div>
-      <div class="carousel" aria-roledescription="carousel" aria-label="Videos, newest to oldest">
-        <div class="track" id="track" tabindex="0"></div>
-        <div class="cnav">
-          <div class="dots" id="dots" role="tablist" aria-label="Choose video"></div>
-          <div class="arrows">
-            <button class="arrow" id="prev" type="button" aria-label="Previous video"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></button>
-            <button class="arrow" id="next" type="button" aria-label="Next video"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section class="impact" aria-label="Our impact so far">
     <div class="wrap">
       <div class="impact-row">
@@ -379,6 +361,24 @@ footer a{color:var(--sky-deep)}
           <div class="arrows">
             <button class="arrow" id="alumPrev" type="button" aria-label="Previous alumni"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></button>
             <button class="arrow" id="alumNext" type="button" aria-label="Next alumni"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="videos">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Latest videos</h2>
+      </div>
+      <div class="carousel" aria-roledescription="carousel" aria-label="Videos, newest to oldest">
+        <div class="track" id="track" tabindex="0"></div>
+        <div class="cnav">
+          <div class="dots" id="dots" role="tablist" aria-label="Choose video"></div>
+          <div class="arrows">
+            <button class="arrow" id="prev" type="button" aria-label="Previous video"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+            <button class="arrow" id="next" type="button" aria-label="Next video"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button>
           </div>
         </div>
       </div>

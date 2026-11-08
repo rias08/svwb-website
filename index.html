@@ -189,15 +189,16 @@ dialog#lightbox::backdrop{background:rgba(30,27,75,.72)}
 .hero{position:relative;overflow:hidden}
 .hero .sunset{position:absolute;left:0;right:0;bottom:0;width:100%;height:80px;pointer-events:none}
 .hero .wrap{position:relative;z-index:1}
-.alumni{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
-@media (max-width:900px){.alumni{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:480px){.alumni{grid-template-columns:1fr}}
-.alum{background:var(--surface);border:1px dashed var(--sky);border-radius:18px;padding:20px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;transition:transform .25s,box-shadow .25s,border-style .25s}
+/* alumni: row scrolled with the arrow buttons (reuses .track from the carousel) */
+.alumni-track{padding:10px 2px 14px}
+.arrow:disabled{opacity:.35;cursor:default;background:var(--surface)}
+.alum{flex:0 0 210px;scroll-snap-align:start;background:var(--surface);border:1px dashed var(--sky);border-radius:18px;padding:16px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;transition:transform .25s,box-shadow .25s,border-style .25s}
 .alum:hover{transform:translateY(-6px);box-shadow:0 16px 32px rgba(30,27,75,.12);border-style:solid}
-.alum .face{width:84px;height:84px;border-radius:50%;background:var(--sky-soft);display:grid;place-items:center;overflow:hidden;transition:transform .35s}
+.alum .face{width:56px;height:56px;border-radius:50%;background:var(--sky-soft);display:grid;place-items:center;overflow:hidden;transition:transform .35s}
 .alum:hover .face{transform:scale(1.1)}
 .alum strong{font-family:var(--display)}
 .alum .meta{font-size:.9rem;color:var(--muted)}
+.alum .company{font-weight:600}
 .alum .sector{font-size:.78rem;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--sky-soft);color:var(--sky-deep)}
 footer .wrap{align-items:flex-end}
 .foot-brand{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
@@ -345,9 +346,16 @@ footer a{color:var(--sky-deep)}
 
   <section id="alumni">
     <div class="wrap">
-      <div class="sec-head"><div class="stack" style="gap:8px"><span class="eyebrow">Alumni</span><h2>Where our alumni are now</h2></div><span class="wip">WIP</span></div>
-      <div class="alumni" id="alumni-grid"></div>
-      <p class="note" style="margin-top:14px">Template. Alumni appear here only with their permission.</p>
+      <div class="sec-head"><div class="stack" style="gap:8px"><span class="eyebrow">Alumni</span><h2>Where our alumni are now</h2></div></div>
+      <div class="carousel" aria-label="Alumni">
+        <div class="track alumni-track" id="alumni-grid" tabindex="0"></div>
+        <div class="cnav" style="justify-content:center;margin-top:8px">
+          <div class="arrows">
+            <button class="arrow" id="alumPrev" type="button" aria-label="Previous alumni"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+            <button class="arrow" id="alumNext" type="button" aria-label="Next alumni"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -780,20 +788,41 @@ track.addEventListener("keydown", e => { if (e.key === "ArrowRight") go(cur + 1)
 mark();
 
 
-/* alumni blueprint: replace with real alumni who agreed to be featured */
+/* alumni: name, position, company, and a sector tag (leave sector "" to hide it) */
 const ALUMNI = [
-  { name: "[Alumni name]", year: "[Year]", role: "[Role]", company: "[Company]", sector: "AI / ML" },
-  { name: "[Alumni name]", year: "[Year]", role: "[Role]", company: "[Company]", sector: "Data analytics" },
-  { name: "[Alumni name]", year: "[Year]", role: "[Role]", company: "[Company]", sector: "Fintech" },
-  { name: "[Alumni name]", year: "[Year]", role: "[Role]", company: "[Company]", sector: "Cybersecurity" }
+  { name: "Sherywn Koa", role: "Chapter President + Project Manager", company: "Deloitte", sector: "Consulting" },
+  { name: "Fiona Iriarte", role: "Senior Consultant", company: "Accenture", sector: "Consulting" },
+  { name: "Sarah Guo", role: "Project Manager", company: "KPMG", sector: "Consulting" },
+  { name: "Reeti Patel", role: "Project Manager", company: "Protiviti", sector: "Consulting" },
+  { name: "Alice Zhao", role: "Chapter President + Project Manager", company: "EY", sector: "Consulting" },
+  { name: "Vinay Shanbagh", role: "IT Manager + Senior Consultant", company: "IBM", sector: "Industry" },
+  { name: "Emil Andersson", role: "Global Manager", company: "Brightline", sector: "Industry" },
+  { name: "Alyssa Hu", role: "Senior Consultant", company: "Morgan Stanley", sector: "Industry" },
+  { name: "PJ Usak", role: "Senior Consultant", company: "Stephens Investment Banking", sector: "Industry" },
+  { name: "Natalia Shafer", role: "Chapter President + Project Manager", company: "NYSE", sector: "Industry" },
+  { name: "Luc Loja", role: "Senior Consultant", company: "Vickers Venture Partners", sector: "Industry" },
+  { name: "Tony Lu", role: "Chapter President + Project Manager", company: "Lenovo", sector: "Industry" },
+  { name: "Cameron Rosenthal", role: "Senior Consultant", company: "SIMS Metal Management", sector: "Industry" },
+  { name: "Jason Yin", role: "Project Manager", company: "Salesforce", sector: "Industry" },
+  { name: "Nam Phuong Le", role: "Project Manager", company: "Cognizant", sector: "Industry" }
 ];
 const ag = document.getElementById("alumni-grid");
 ALUMNI.forEach(a => {
   const el = document.createElement("article");
   el.className = "alum";
-  el.innerHTML = `<div class="face"><svg width="54" height="54" viewBox="0 0 24 24" fill="#2F6FB8" aria-hidden="true"><circle cx="12" cy="8" r="4.2"/><path d="M3.5 21c.8-4.4 4.3-7 8.5-7s7.7 2.6 8.5 7z"/></svg></div><strong>${a.name}</strong><span class="meta">Class of ${a.year}</span><span class="meta">${a.role} at ${a.company}</span><span class="sector">${a.sector}</span><span class="note">LinkedIn <span class="wip">WIP</span></span>`;
+  el.innerHTML = `<div class="face"><svg width="36" height="36" viewBox="0 0 24 24" fill="#2F6FB8" aria-hidden="true"><circle cx="12" cy="8" r="4.2"/><path d="M3.5 21c.8-4.4 4.3-7 8.5-7s7.7 2.6 8.5 7z"/></svg></div><strong>${a.name}</strong><span class="meta">${a.role}</span><span class="company">${a.company}</span>${a.sector ? `<span class="sector">${a.sector}</span>` : ""}`;
   ag.appendChild(el);
 });
+const alumPrev = document.getElementById("alumPrev"), alumNext = document.getElementById("alumNext");
+const alumPage = dir => ag.scrollBy({ left: dir * ag.clientWidth * 0.9, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+function alumEnds() {
+  alumPrev.disabled = ag.scrollLeft <= 2;
+  alumNext.disabled = ag.scrollLeft + ag.clientWidth >= ag.scrollWidth - 2;
+}
+alumPrev.addEventListener("click", () => alumPage(-1));
+alumNext.addEventListener("click", () => alumPage(1));
+ag.addEventListener("scroll", alumEnds, { passive: true });
+new ResizeObserver(alumEnds).observe(ag); // also re-checks when the home view is shown again
 
 /* lightbox (zoom view) */
 const lb = document.getElementById("lightbox");

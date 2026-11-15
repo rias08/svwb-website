@@ -5,24 +5,43 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Silicon Valley Without Borders</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;0,700;0,800;1,800&family=Source+Sans+3:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;0,700;0,800;1,800&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500;600&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
 <style>
-/* Layout: sticky light header with the logo; four views (home, students, partners, dashboard) swapped by the nav; light-blue bands alternate with white panels. Single light look by choice so the logo's ground matches. */
+/* Layout: sticky header with the logo; views swapped by the nav; theme 5 throughout: navy page, cream text, gold accents and buttons, slightly lighter navy cards. */
 :root{
-  --paper:#F2F2EF;      /* logo ground, header */
-  --bg:#FAF6EE;         /* Silicon Sunset cream */
-  --surface:#FFFFFF;
-  --ink:#1E1B4B;        /* Silicon Sunset midnight */
-  --muted:#4F4C72;
-  --sky:#2F6FB8;        /* blue, a step darker */
-  --sky-soft:#DDE8F5;
-  --sky-deep:#1C4F8F;   /* buttons and links */
-  --gold:#F5A524;       /* Silicon Sunset amber, for fills */
-  --gold-text:#94600A;  /* amber dark enough for small text */
-  --line:#D9DDE6;
+  --navy:#1B2550;       /* text on gold, both modes */
+  --deep:#16204A;       /* video frames */
+  --mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
   --display:'Montserrat',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --serif:'Source Serif 4',Georgia,'Times New Roman',serif;
   --body:'Source Sans 3',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+/* dark mode: a lighter, bluer navy with cream text */
+:root{
+  --bg:#2E4184; --paper:#283A78; --band:#26376F; --surface:#394D97;
+  --ink:#F3EEE2; --muted:#D0D6EC; --sky:#9FB0E4; --sky-soft:#4A5FA8;
+  --sky-deep:#C9A24D; --gold:#C9A24D; --gold-text:#E0C177; --line:#5A6DB8;
+  --on-accent:#1B2550; --accent-hover:#B48C38; --gold-hover:#B48C38;
+  --v1:#5566A8; --v2:#C9A24D; --v3:#8FA0D8; --v-center:#F3EEE2; --v3-text:#1B2550;
+  --glow:#3C519E; --a-cream:#F3EEE2; --a-sky:#9FB0E4; --a-panel:#394D97;
+  color-scheme:dark;
+}
+/* light mode: the original Silicon Sunset colors */
+[data-theme="light"]{
+  --navy:#1E1B4B; --on-accent:#FFFFFF; --accent-hover:#143D70; --gold-hover:#E0921A;
+  --bg:#FAF6EE; --paper:#F2F2EF; --band:#DDE8F5; --surface:#FFFFFF;
+  --ink:#1E1B4B; --muted:#4F4C72; --sky:#2F6FB8; --sky-soft:#DDE8F5;
+  --sky-deep:#1C4F8F; --gold:#F5A524; --gold-text:#94600A; --line:#D9DDE6;
+  --glow:#DDE8F5; --a-cream:#1E1B4B; --a-sky:#2F6FB8; --a-panel:#DDE8F5;
+  --v1:#2F6FB8; --v2:#F5A524; --v3:#1E1B4B; --v-center:#FFFFFF; --v3-text:#FFFFFF;
   color-scheme:light;
+}
+/* beige sections inside dark mode only */
+:root:not([data-theme="light"]) .sand{
+  --bg:#EFE6D4; --surface:#FBF7EE; --ink:#1B2550; --muted:#4F587D; --sky:#3E56A8;
+  --sky-soft:#E6E9F4; --sky-deep:#B8902F; --gold-text:#8A6A1F; --line:#DCCFB6;
+  --a-cream:#25346E; --a-sky:#7D90D0; --a-panel:#E6EAF5;
+  background:var(--bg); color:var(--ink);
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -33,12 +52,14 @@ html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6}
 .wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 h1,h2,h3{font-family:var(--display);line-height:1.15;text-wrap:balance;margin:0}
-h1{font-size:clamp(2rem,4.6vw,3.2rem);font-weight:800}
-h2{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:800}
+h1,h2{font-family:var(--serif);letter-spacing:-.01em}
+h1{font-size:clamp(2rem,4.6vw,3.2rem);font-weight:700}
+h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700}
 h3{font-size:1.1rem;font-weight:700}
 p{margin:0;max-width:65ch}
 a{color:var(--sky-deep)}
-.eyebrow{font-family:var(--display);font-weight:700;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-text)}
+.eyebrow{font-family:var(--mono);font-weight:600;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-text);display:inline-flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:22px;height:2px;background:var(--gold)}
 .lede{font-size:1.15rem;color:var(--muted)}
 :focus-visible{outline:3px solid var(--sky);outline-offset:3px;border-radius:4px}
 
@@ -50,12 +71,12 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:va
 nav ul{list-style:none;margin:0;padding:0;display:flex;gap:4px;flex-wrap:wrap}
 nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border-radius:999px;font-family:var(--display);font-weight:600;font-size:.92rem;color:var(--ink);text-decoration:none}
 nav a:hover{background:var(--sky-soft)}
-nav a[aria-current="page"]{background:var(--sky-deep);color:#fff}
+nav a[aria-current="page"]{background:var(--sky-deep);color:var(--on-accent)}
 
 /* buttons */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:999px;font-family:var(--display);font-weight:700;font-size:.95rem;text-decoration:none;border:2px solid var(--sky-deep);cursor:pointer;transition:background .15s,color .15s}
-.btn.primary{background:var(--sky-deep);color:#fff}
-.btn.primary:hover{background:#143D70;border-color:#143D70}
+.btn.primary{background:var(--sky-deep);color:var(--on-accent)}
+.btn.primary:hover{background:var(--accent-hover);border-color:var(--accent-hover)}
 .btn.ghost{background:transparent;color:var(--sky-deep)}
 .btn.ghost:hover{background:var(--sky-soft)}
 .btn[aria-disabled="true"]{opacity:.55;cursor:not-allowed}
@@ -63,7 +84,7 @@ nav a[aria-current="page"]{background:var(--sky-deep);color:#fff}
 .note{font-size:.88rem;color:var(--muted)}
 
 section{padding-block:64px}
-.band{background:var(--sky-soft)}
+.band{background:var(--band)}
 .panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px}
 .stack{display:flex;flex-direction:column;gap:16px}
 .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
@@ -71,13 +92,13 @@ section{padding-block:64px}
 @media (max-width:820px){.grid3,.grid2{grid-template-columns:1fr}}
 
 /* hero */
-.hero{padding-block:72px 56px;background:linear-gradient(var(--sky-soft),var(--bg))}
+.hero{padding-block:72px 56px;background:var(--bg)}
 .hero .wrap{display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:center}
 .hero .wrap>*{min-width:0}
 @media (max-width:820px){.hero .wrap{grid-template-columns:1fr}}
-.pillars{display:flex;gap:10px;flex-wrap:wrap;font-family:var(--display);font-weight:700;font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+.pillars{display:flex;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-weight:500;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-text)}
 .pillars span{display:inline-flex;align-items:center;gap:10px}
-.pillars span+span::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.pillars span+span::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--ink);opacity:.5}
 .globe{aspect-ratio:1;max-width:360px;width:100%;justify-self:center}
 
 /* pillar cards */
@@ -89,10 +110,10 @@ section{padding-block:64px}
 .track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:20px;scrollbar-width:none;padding-bottom:4px}
 .track::-webkit-scrollbar{display:none}
 .slide{flex:0 0 min(560px,86%);scroll-snap-align:start;display:flex;flex-direction:column;gap:12px}
-.video{aspect-ratio:16/9;max-width:100%;border-radius:14px;background:var(--ink);color:#fff;display:grid;place-items:center;position:relative;overflow:hidden}
-.video::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 22px,rgba(47,111,184,.10) 22px 23px)}
+.video{aspect-ratio:16/9;max-width:100%;border-radius:14px;background:var(--deep);color:#fff;display:grid;place-items:center;position:relative;overflow:hidden}
+.video::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 22px,rgba(143,160,216,.10) 22px 23px)}
 .play{width:68px;height:68px;border-radius:50%;background:var(--sky);display:grid;place-items:center;position:relative;z-index:1}
-.tag{position:absolute;top:12px;left:12px;z-index:1;background:var(--gold);color:var(--ink);font-family:var(--display);font-weight:700;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:999px}
+.tag{position:absolute;top:12px;left:12px;z-index:1;background:var(--gold);color:var(--navy);font-family:var(--display);font-weight:700;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:999px}
 .slide h3{font-size:1rem}
 .cnav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:20px;flex-wrap:wrap}
 .arrows{display:flex;gap:8px}
@@ -129,7 +150,7 @@ details p{margin-top:8px;color:var(--muted)}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:14px}
 .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap}
 .card-top p{font-size:.92rem;color:var(--muted)}
-.ph{border:2px dashed var(--line);border-radius:12px;background:repeating-linear-gradient(135deg,transparent 0 10px,rgba(47,111,184,.05) 10px 20px);display:grid;place-items:center;text-align:center;color:var(--muted);font-family:var(--display);font-weight:600;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;padding:12px}
+.ph{border:2px dashed var(--line);border-radius:12px;background:repeating-linear-gradient(135deg,transparent 0 10px,rgba(143,160,216,.05) 10px 20px);display:grid;place-items:center;text-align:center;color:var(--muted);font-family:var(--display);font-weight:600;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;padding:12px}
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
 .stat{border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:8px}
 .stat .lbl{font-size:.88rem;color:var(--muted)}
@@ -148,11 +169,11 @@ td span{display:block;height:10px;border-radius:5px;background:var(--sky-soft)}
 .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:24px}
 .chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--ink);font-family:var(--display);font-weight:700;font-size:.9rem;text-decoration:none;transition:transform .2s,box-shadow .2s}
 .chip svg{color:#D93025}
-.chip:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(30,27,75,.12)}
+.chip:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(4,7,22,.12)}
 .slide{cursor:pointer}
 .slide .video{transition:transform .35s ease,box-shadow .35s ease}
 .slide .play{transition:transform .3s ease,background .3s}
-.slide:hover .video,.slide:focus-visible .video{transform:scale(1.03);box-shadow:0 14px 30px rgba(30,27,75,.25)}
+.slide:hover .video,.slide:focus-visible .video{transform:scale(1.03);box-shadow:0 14px 30px rgba(4,7,22,.25)}
 .slide:hover .play,.slide:focus-visible .play{transform:scale(1.18);background:var(--sky-deep)}
 .slide .zoomhint{position:absolute;right:12px;bottom:12px;z-index:1;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.16);display:grid;place-items:center;opacity:0;transition:opacity .25s}
 .slide:hover .zoomhint{opacity:1}
@@ -160,31 +181,31 @@ td span{display:block;height:10px;border-radius:5px;background:var(--sky-soft)}
 .tile .art{background:var(--sky-soft);border-radius:12px;padding:18px;margin-bottom:10px;overflow:hidden}
 .tile .art svg{display:block;width:100%;height:auto;max-height:120px;transition:transform .4s ease}
 .tile p{color:var(--muted)}
-.tile:hover{transform:translateY(-6px);box-shadow:0 16px 32px rgba(30,27,75,.12);border-color:var(--sky)}
+.tile:hover{transform:translateY(-6px);box-shadow:0 16px 32px rgba(4,7,22,.12);border-color:var(--sky)}
 .tile:hover .art svg{transform:scale(1.12)}
 .flow{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));position:relative}
 .flow::before{content:"";position:absolute;left:12.5%;right:12.5%;top:26px;height:3px;background:linear-gradient(90deg,var(--sky),var(--gold))}
 .flow li{display:flex;flex-direction:column;align-items:center;gap:8px;font-family:var(--display);font-weight:700;position:relative}
 .flow .node{width:54px;height:54px;border-radius:50%;background:var(--surface);border:3px solid var(--sky);display:grid;place-items:center;font-size:1.2rem;color:var(--sky-deep);transition:transform .25s,background .25s,color .25s}
-.flow li:hover .node{transform:scale(1.18);background:var(--sky-deep);color:#fff}
+.flow li:hover .node{transform:scale(1.18);background:var(--sky-deep);color:var(--on-accent)}
 .cta{display:flex;align-items:center;gap:18px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px 24px;text-decoration:none;color:var(--ink);transition:transform .25s,box-shadow .25s,border-color .25s}
 .cta svg{width:64px;height:64px;flex:0 0 64px;transition:transform .35s}
 .cta strong{font-family:var(--display);font-size:1.3rem}
 .cta .go{margin-left:auto;font-size:1.6rem;color:var(--sky-deep);transition:transform .25s}
-.cta:hover{transform:translateY(-4px);box-shadow:0 14px 28px rgba(30,27,75,.12);border-color:var(--sky)}
+.cta:hover{transform:translateY(-4px);box-shadow:0 14px 28px rgba(4,7,22,.12);border-color:var(--sky)}
 .cta:hover svg{transform:scale(1.12) rotate(-4deg)}
 .cta:hover .go{transform:translateX(6px)}
 .panel,.steps li,.card{transition:transform .25s,box-shadow .25s}
-.panel:hover,.steps li:hover,.card:hover{transform:translateY(-4px);box-shadow:0 12px 26px rgba(30,27,75,.10)}
+.panel:hover,.steps li:hover,.card:hover{transform:translateY(-4px);box-shadow:0 12px 26px rgba(4,7,22,.10)}
 dialog#lightbox{border:0;padding:0;background:transparent;width:min(960px,94vw);max-width:94vw}
-dialog#lightbox::backdrop{background:rgba(30,27,75,.72)}
+dialog#lightbox::backdrop{background:rgba(4,7,22,.72)}
 .lb-inner{background:var(--surface);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:14px;position:relative;animation:pop .25s ease}
 .lb-close{position:absolute;top:-14px;right:-14px;z-index:2}
 @keyframes pop{from{transform:scale(.92);opacity:.4}to{transform:scale(1);opacity:1}}
 @media (prefers-reduced-motion:reduce){.lb-inner{animation:none}}
 @media (max-width:600px){.flow .node{width:44px;height:44px}.flow::before{top:21px}.lb-close{top:6px;right:6px}}
 
-.wip{display:inline-flex;align-items:center;font-family:var(--display);font-weight:800;font-size:.66rem;letter-spacing:.12em;padding:3px 8px;border-radius:999px;background:var(--gold);color:var(--ink);vertical-align:middle}
+.wip{display:inline-flex;align-items:center;font-family:var(--display);font-weight:800;font-size:.66rem;letter-spacing:.12em;padding:3px 8px;border-radius:999px;background:var(--gold);color:var(--navy);vertical-align:middle}
 .btn .wip{margin-left:2px}
 .hero{position:relative;overflow:hidden}
 .hero .sunset{position:absolute;left:0;right:0;bottom:0;width:100%;height:80px;pointer-events:none}
@@ -193,7 +214,7 @@ dialog#lightbox::backdrop{background:rgba(30,27,75,.72)}
 .alumni-track{padding:10px 2px 14px}
 .arrow:disabled{opacity:.35;cursor:default;background:var(--surface)}
 .alum{flex:0 0 210px;scroll-snap-align:start;background:var(--surface);border:1px dashed var(--sky);border-radius:18px;padding:16px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;transition:transform .25s,box-shadow .25s,border-style .25s}
-.alum:hover{transform:translateY(-6px);box-shadow:0 16px 32px rgba(30,27,75,.12);border-style:solid}
+.alum:hover{transform:translateY(-6px);box-shadow:0 16px 32px rgba(4,7,22,.12);border-style:solid}
 .alum .face{width:56px;height:56px;border-radius:50%;background:var(--sky-soft);display:grid;place-items:center;overflow:hidden;transition:transform .35s}
 .alum:hover .face{transform:scale(1.1)}
 .alum strong{font-family:var(--display)}
@@ -201,7 +222,7 @@ dialog#lightbox::backdrop{background:rgba(30,27,75,.72)}
 .alum .company{font-weight:600}
 .alum .sector{font-size:.78rem;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--sky-soft);color:var(--sky-deep)}
 /* impact counters (home) */
-.impact{padding-block:28px 0}
+.impact{padding-block:40px 0}
 .impact-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
 @media (max-width:720px){.impact-row{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .impact-item{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 16px;text-align:center;display:flex;flex-direction:column;gap:4px}
@@ -212,21 +233,42 @@ dialog#lightbox::backdrop{background:rgba(30,27,75,.72)}
 .skills{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;list-style:none;margin:0;padding:0}
 @media (max-width:900px){.skills{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .skills li{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;align-items:center;gap:12px;font-family:var(--display);font-weight:600;font-size:.95rem;transition:transform .25s,box-shadow .25s,border-color .25s}
-.skills li:hover{transform:translateY(-4px);box-shadow:0 12px 26px rgba(30,27,75,.10);border-color:var(--sky)}
+.skills li:hover{transform:translateY(-4px);box-shadow:0 12px 26px rgba(4,7,22,.10);border-color:var(--sky)}
 .skills .ic{flex:0 0 40px;height:40px;border-radius:12px;background:var(--sky-soft);color:var(--sky-deep);display:grid;place-items:center}
 footer .wrap{align-items:flex-end}
 .foot-brand{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
 .foot-logo{display:block;background:transparent;padding:0;transition:transform .25s}
 .foot-logo:hover{transform:scale(1.04)}
 .foot-logo img{height:64px;width:auto;display:block}
-.yt{display:grid;place-items:center;width:56px;height:56px;border-radius:14px;background:rgba(30,27,75,.06);margin-left:auto;transition:transform .25s,background .25s}
-.yt:hover{transform:scale(1.12);background:rgba(30,27,75,.12)}
+.yt{display:grid;place-items:center;width:56px;height:56px;border-radius:14px;background:rgba(4,7,22,.06);margin-left:auto;transition:transform .25s,background .25s}
+.yt:hover{transform:scale(1.12);background:rgba(4,7,22,.12)}
 
 .slogan{font-size:clamp(2.2rem,5.4vw,3.8rem)}
 .slogan .big{color:var(--sky-deep);letter-spacing:.02em}
-.nav-donate{background:var(--gold);color:var(--ink)!important}
-.nav-donate:hover{background:#E0921A!important}
-nav a.nav-donate[aria-current="page"]{background:var(--ink);color:#fff!important}
+.slogan{font-weight:600}
+/* consulting + tech details */
+.hero{background:radial-gradient(rgba(143,160,216,.22) 1px,transparent 1.4px) 0 0/22px 22px,radial-gradient(120% 80% at 50% 0%,var(--glow) 0%,var(--bg) 70%)}
+.band{background:linear-gradient(rgba(143,160,216,.07) 1px,transparent 1px) 0 0/44px 44px,linear-gradient(90deg,rgba(143,160,216,.07) 1px,transparent 1px) 0 0/44px 44px,var(--band)}
+.hero-chart{position:absolute;left:-20px;bottom:0;width:min(380px,50vw);height:auto;pointer-events:none;opacity:.6}
+@media (max-width:720px){.hero-chart{display:none}}
+.hero .kicker{font-family:var(--mono);font-weight:600;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-text)}
+.hero .pillars{color:var(--muted);font-size:.8rem}
+.hero .pillars span+span::before{background:var(--gold);opacity:1}
+/* viewfinder corners on cards: a nod to data and screens */
+.tile,.impact-item,.card,.cta,.skills li{position:relative}
+.tile::after,.impact-item::after,.card::after,.cta::after,.skills li::after{content:"";position:absolute;inset:8px;pointer-events:none;
+  background:linear-gradient(var(--gold),var(--gold)) top left/14px 2px,linear-gradient(var(--gold),var(--gold)) top left/2px 14px,
+             linear-gradient(var(--gold),var(--gold)) bottom right/14px 2px,linear-gradient(var(--gold),var(--gold)) bottom right/2px 14px;
+  background-repeat:no-repeat;opacity:.55;transition:opacity .25s}
+.tile:hover::after,.impact-item:hover::after,.card:hover::after,.cta:hover::after,.skills li:hover::after{opacity:1}
+.impact-item .num{font-family:var(--mono);font-weight:600;color:var(--gold)}
+.impact-item .lbl{font-family:var(--mono)}
+footer{background:radial-gradient(rgba(143,160,216,.16) 1px,transparent 1.4px) 0 0/22px 22px,var(--paper)}
+.hero .globe{position:absolute;right:-60px;top:-40px;width:min(420px,60vw);height:auto;pointer-events:none;opacity:.55}
+.hero .rule{width:72px;height:3px;background:var(--gold);border-radius:2px}
+.nav-donate{background:var(--gold);color:var(--navy)!important}
+.nav-donate:hover{background:var(--gold-hover)!important}
+nav a.nav-donate[aria-current="page"]{background:var(--ink);color:var(--bg)!important}
 .venn-wrap{display:flex;flex-direction:column;align-items:center;gap:4px}
 .venn-stage{position:relative;width:100%;max-width:480px}
 .venn{width:100%;height:auto;display:block;overflow:visible}
@@ -235,15 +277,15 @@ nav a.nav-donate[aria-current="page"]{background:var(--ink);color:#fff!important
 .vc text{font-family:var(--display);font-weight:800;font-size:20px;fill:#FFFFFF;pointer-events:none}
 .vc .lw{font-size:13px;font-weight:700;letter-spacing:.22em}
 .vc .lb{font-size:26px;letter-spacing:.06em}
-.vc text.dark{fill:#1E1B4B}
+.vc text.dark{fill:#1B2550}
 .vc text.small{font-size:13px;letter-spacing:.08em}
 .venn.has-active .vc:not(.center) circle{fill-opacity:.3}
 .venn .vc.active circle,.venn .vc:focus-visible circle{fill-opacity:.88;transform:scale(1.06)}
-.vc.center circle{fill-opacity:1;stroke:#1E1B4B;stroke-width:2}
-.vc.center.active circle{fill-opacity:1;transform:scale(1.25);stroke:#F5A524;stroke-width:3}
-.vc:focus-visible circle{stroke:#1E1B4B;stroke-width:3}
+.vc.center circle{fill-opacity:1;stroke:#1B2550;stroke-width:2}
+.vc.center.active circle{fill-opacity:1;transform:scale(1.25);stroke:#C9A24D;stroke-width:3}
+.vc:focus-visible circle{stroke:#C9A24D;stroke-width:3}
 .venn-panel{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(340px,92%);z-index:3;animation:pop .25s ease}
-.venn-panel .why-panel{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--sky);border-radius:0;padding:22px 22px 20px;display:flex;flex-direction:column;gap:12px;box-shadow:0 20px 44px rgba(30,27,75,.28)}
+.venn-panel .why-panel{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--sky);border-radius:0;padding:22px 22px 20px;display:flex;flex-direction:column;gap:12px;box-shadow:0 20px 44px rgba(4,7,22,.28)}
 .pop-close{position:absolute;top:-16px;right:-16px;z-index:4;width:40px;height:40px}
 @keyframes pop{from{opacity:0;transform:translate(-50%,-46%) scale(.94)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
 .venn-panel .why-panel[data-panel="us"]{border-left-color:var(--gold)}
@@ -267,7 +309,7 @@ nav a.nav-donate[aria-current="page"]{background:var(--ink);color:#fff!important
 .stackbar i:hover{filter:brightness(1.15)}
 .axis{display:grid;grid-template-columns:150px minmax(0,1fr);gap:12px;font-size:.8rem;color:var(--muted);border-top:1px solid var(--line);padding-top:6px}
 @media (max-width:480px){.axis{grid-template-columns:100px minmax(0,1fr)}}
-footer{background:var(--bg);color:var(--ink);border-top:1px solid var(--line);padding-block:36px}
+footer{background:var(--paper);color:var(--ink);border-top:1px solid var(--line);padding-block:36px}
 footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
 footer a{color:var(--sky-deep)}
 .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:2}
@@ -276,13 +318,30 @@ footer a{color:var(--sky-deep)}
 .slide-foot{display:flex;justify-content:space-between;align-items:center;gap:12px}
 .enlarge{width:40px;height:40px;flex:0 0 40px}
 .slide:hover .video{transform:none}
+/* theme toggle */
+.theme-btn{width:44px;height:44px;flex:0 0 44px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--ink);display:grid;place-items:center;cursor:pointer;transition:background .2s,transform .2s}
+.theme-btn:hover{background:var(--sky-soft);transform:rotate(-12deg)}
+.theme-btn .sun{display:none}
+[data-theme="light"] .theme-btn .sun{display:block}
+[data-theme="light"] .theme-btn .moon{display:none}
+.bar nav{margin-left:auto}
+body,header,footer,.tile,.card,.impact-item{transition:background-color .3s,color .3s,border-color .3s}
+.vc text.v3t{fill:var(--v3-text)}
+.has-sunset{position:relative;overflow:hidden}
+.has-sunset .sunset{position:absolute;left:0;right:0;bottom:0;width:100%;height:80px;pointer-events:none}
+.has-sunset .wrap{position:relative;z-index:1}
 </style>
+<script>
+(function(){var t;try{t=localStorage.getItem('svwb-theme')}catch(e){}
+if(!t)t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';
+document.documentElement.dataset.theme=t;})();
+</script>
 </head>
 <body>
 
 <header>
   <div class="wrap bar">
-    <a class="brand" href="#home" aria-label="Silicon Valley Without Borders, home"><img src="logo.png" alt="Silicon Valley Without Borders"></a>
+    <a class="brand" href="#home" aria-label="Silicon Valley Without Borders, home"><img src="logo-light.png" alt="Silicon Valley Without Borders"></a>
     <nav aria-label="Main">
       <ul>
         <li><a href="#home" data-view="home">Home</a></li>
@@ -293,6 +352,10 @@ footer a{color:var(--sky-deep)}
         <li><a href="#donate" data-view="donate" class="nav-donate">Donate</a></li>
       </ul>
     </nav>
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch to light mode" title="Light or dark mode">
+      <svg class="moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <svg class="sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
   </div>
 </header>
 
@@ -300,21 +363,23 @@ footer a{color:var(--sky-deep)}
 <!-- ================= HOME ================= -->
 <div id="view-home" data-page="home">
   <section class="hero">
+    <svg class="globe" viewBox="0 0 400 400" fill="none" stroke="#C9A24D" stroke-width="1.5" aria-hidden="true"><circle cx="200" cy="200" r="190"/><ellipse cx="200" cy="200" rx="80" ry="190"/><ellipse cx="200" cy="200" rx="150" ry="190"/><path d="M10 200h380M40 105h320M40 295h320"/></svg>
+    <svg class="hero-chart" viewBox="0 0 380 220" fill="none" aria-hidden="true"><g opacity=".35" style="fill:var(--a-sky)"><rect x="40" y="150" width="34" height="70" rx="3"/><rect x="96" y="120" width="34" height="100" rx="3"/><rect x="152" y="132" width="34" height="88" rx="3"/><rect x="208" y="88" width="34" height="132" rx="3"/><rect x="264" y="56" width="34" height="164" rx="3"/></g><path d="M20 176 L113 104 L169 120 L225 70 L330 22" stroke="#C9A24D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><g fill="#C9A24D"><circle cx="113" cy="104" r="5"/><circle cx="169" cy="120" r="5"/><circle cx="225" cy="70" r="5"/><circle cx="330" cy="22" r="7"/></g></svg>
     <div class="wrap" style="grid-template-columns:1fr;justify-items:center;text-align:center">
       <div class="stack" style="gap:22px;align-items:center">
-        <div class="pillars"><span>Connect</span><span>Innovate</span><span>Launch</span></div>
+        <span class="rule" aria-hidden="true"></span>
         <h1 class="slogan"><span class="big">TALENT</span> has no borders,<br>Neither do <span class="big">WE</span>!</h1>
         <p class="lede">Students, companies, and mentors building real projects together.</p>
         <div class="row" style="justify-content:center">
           <a class="btn primary" href="#students">Join as a student</a>
           <a class="btn ghost" href="#partners">Partner with us</a>
         </div>
+        <div class="pillars"><span>Connect</span><span>Innovate</span><span>Launch</span></div>
       </div>
     </div>
-    <svg class="sunset" viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 80 C 300 10, 900 10, 1200 80 Z" fill="#F5A524" opacity=".18"/><path d="M0 80 C 350 35, 850 35, 1200 80 Z" fill="#2F6FB8" opacity=".14"/></svg>
   </section>
 
-  <section class="impact" aria-label="Our impact so far">
+  <section class="impact sand" aria-label="Our impact so far" style="padding-bottom:40px">
     <div class="wrap">
       <div class="impact-row">
         <div class="impact-item"><span class="num" data-count="488">488</span><span class="lbl">Students</span></div>
@@ -331,15 +396,15 @@ footer a{color:var(--sky-deep)}
       <div class="sec-head"><div class="stack" style="gap:8px"><span class="eyebrow">About us</span><h2>Students + companies + mentors, on real projects</h2></div></div>
       <div class="grid3">
         <div class="tile">
-          <div class="art"><svg viewBox="0 0 120 80" aria-hidden="true"><circle cx="30" cy="40" r="14" fill="#2F6FB8"/><circle cx="90" cy="20" r="11" fill="#1E1B4B"/><circle cx="90" cy="60" r="11" fill="#F5A524"/><path d="M43 34l36-12M43 46l36 12" stroke="#1E1B4B" stroke-width="3" stroke-linecap="round"/></svg></div>
+          <div class="art"><svg viewBox="0 0 120 80" aria-hidden="true"><circle cx="30" cy="40" r="14" style="fill:var(--a-sky)"/><circle cx="90" cy="20" r="11" style="fill:var(--a-cream)"/><circle cx="90" cy="60" r="11" fill="#C9A24D"/><path d="M43 34l36-12M43 46l36 12" stroke-width="3" stroke-linecap="round" style="stroke:var(--a-cream)"/></svg></div>
           <h3>Connect</h3><p>Mentors, alumni, partners</p>
         </div>
         <div class="tile">
-          <div class="art"><svg viewBox="0 0 120 80" aria-hidden="true"><path d="M60 10a22 22 0 0 0-13 40v8h26v-8a22 22 0 0 0-13-40z" fill="#2F6FB8"/><rect x="49" y="62" width="22" height="6" rx="3" fill="#1E1B4B"/><path d="M22 32h12M86 32h12M30 12l8 8M90 12l-8 8" stroke="#F5A524" stroke-width="3" stroke-linecap="round"/></svg></div>
+          <div class="art"><svg viewBox="0 0 120 80" aria-hidden="true"><path d="M60 10a22 22 0 0 0-13 40v8h26v-8a22 22 0 0 0-13-40z" style="fill:var(--a-sky)"/><rect x="49" y="62" width="22" height="6" rx="3" style="fill:var(--a-cream)"/><path d="M22 32h12M86 32h12M30 12l8 8M90 12l-8 8" stroke="#C9A24D" stroke-width="3" stroke-linecap="round"/></svg></div>
           <h3>Innovate</h3><p>Team projects for real partners</p>
         </div>
         <div class="tile">
-          <div class="art"><svg viewBox="0 0 120 80" aria-hidden="true"><path d="M20 66 C 40 66, 70 50, 96 14" fill="none" stroke="#F5A524" stroke-width="5" stroke-linecap="round"/><path d="M84 12l14-2-2 14" fill="none" stroke="#F5A524" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><rect x="18" y="50" width="10" height="20" rx="2" fill="#2F6FB8"/><rect x="34" y="40" width="10" height="30" rx="2" fill="#2F6FB8"/><rect x="50" y="30" width="10" height="40" rx="2" fill="#1E1B4B"/></svg></div>
+          <div class="art"><svg viewBox="0 0 120 80" aria-hidden="true"><path d="M20 66 C 40 66, 70 50, 96 14" fill="none" stroke="#C9A24D" stroke-width="5" stroke-linecap="round"/><path d="M84 12l14-2-2 14" fill="none" stroke="#C9A24D" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><rect x="18" y="50" width="10" height="20" rx="2" style="fill:var(--a-sky)"/><rect x="34" y="40" width="10" height="30" rx="2" style="fill:var(--a-sky)"/><rect x="50" y="30" width="10" height="40" rx="2" style="fill:var(--a-cream)"/></svg></div>
           <h3>Launch</h3><p>Internships, jobs, research</p>
         </div>
       </div>
@@ -352,7 +417,7 @@ footer a{color:var(--sky-deep)}
     </div>
   </section>
 
-  <section id="alumni">
+  <section id="alumni" class="sand">
     <div class="wrap">
       <div class="sec-head"><div class="stack" style="gap:8px"><span class="eyebrow">Alumni</span><h2>Where our alumni are now</h2></div></div>
       <div class="carousel" aria-label="Alumni">
@@ -388,12 +453,12 @@ footer a{color:var(--sky-deep)}
   <section class="band">
     <div class="wrap grid2">
       <a class="cta" href="#students">
-        <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 10L4 24l28 14 28-14z" fill="#1E1B4B"/><path d="M14 30v12c0 5 8 10 18 10s18-5 18-10V30L32 39z" fill="#2F6FB8"/><path d="M56 25v16" stroke="#F5A524" stroke-width="3" stroke-linecap="round"/></svg>
+        <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 10L4 24l28 14 28-14z" style="fill:var(--a-cream)"/><path d="M14 30v12c0 5 8 10 18 10s18-5 18-10V30L32 39z" style="fill:var(--a-sky)"/><path d="M56 25v16" stroke="#C9A24D" stroke-width="3" stroke-linecap="round"/></svg>
         <span class="stack" style="gap:4px"><span class="eyebrow">Students</span><strong>Register</strong></span>
         <span class="go" aria-hidden="true">→</span>
       </a>
       <a class="cta" href="#partners">
-        <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="20" width="48" height="34" rx="5" fill="#2F6FB8"/><path d="M24 20v-6a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v6" fill="none" stroke="#1E1B4B" stroke-width="4"/><rect x="8" y="32" width="48" height="4" fill="#1E1B4B"/><circle cx="32" cy="34" r="4" fill="#F5A524"/></svg>
+        <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="20" width="48" height="34" rx="5" style="fill:var(--a-sky)"/><path d="M24 20v-6a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v6" fill="none" stroke-width="4" style="stroke:var(--a-cream)"/><rect x="8" y="32" width="48" height="4" style="fill:var(--a-cream)"/><circle cx="32" cy="34" r="4" fill="#C9A24D"/></svg>
         <span class="stack" style="gap:4px"><span class="eyebrow">Partners</span><strong>Connect with us</strong></span>
         <span class="go" aria-hidden="true">→</span>
       </a>
@@ -412,6 +477,7 @@ footer a{color:var(--sky-deep)}
 <!-- ================= STUDENTS ================= -->
 <div id="view-students" data-page="students" hidden>
   <section class="hero" style="padding-bottom:12px">
+    <svg class="sunset" viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 80 C 300 10, 900 10, 1200 80 Z" style="fill:var(--gold)" opacity=".18"/><path d="M0 80 C 350 35, 850 35, 1200 80 Z" style="fill:var(--sky)" opacity=".14"/></svg>
     <div class="wrap" style="grid-template-columns:1fr">
       <div class="stack" style="gap:20px">
         <span class="eyebrow">Students</span>
@@ -426,19 +492,19 @@ footer a{color:var(--sky-deep)}
       <div class="venn-stage">
       <svg class="venn" viewBox="0 28 400 316" role="group" aria-label="Why you, why us, why now">
         <g class="vc" data-why="you" tabindex="0" role="button" aria-pressed="true" aria-label="Why YOU">
-          <circle cx="150" cy="140" r="105" fill="#2F6FB8"/>
+          <circle cx="150" cy="140" r="105" style="fill:var(--v1)"/>
           <text x="103" y="112" text-anchor="middle"><tspan x="103" dy="-6" class="lw">WHY</tspan><tspan x="103" dy="26" class="lb">YOU</tspan></text>
         </g>
         <g class="vc" data-why="us" tabindex="0" role="button" aria-pressed="false" aria-label="Why US">
-          <circle cx="250" cy="140" r="105" fill="#F5A524"/>
+          <circle cx="250" cy="140" r="105" style="fill:var(--v2)"/>
           <text x="297" y="112" text-anchor="middle" class="dark"><tspan x="297" dy="-6" class="lw">WHY</tspan><tspan x="297" dy="26" class="lb">US</tspan></text>
         </g>
         <g class="vc" data-why="now" tabindex="0" role="button" aria-pressed="false" aria-label="Why NOW">
-          <circle cx="200" cy="230" r="105" fill="#1E1B4B"/>
-          <text x="200" y="285" text-anchor="middle"><tspan x="200" dy="-6" class="lw">WHY</tspan><tspan x="200" dy="26" class="lb">NOW</tspan></text>
+          <circle cx="200" cy="230" r="105" style="fill:var(--v3)"/>
+          <text x="200" y="285" text-anchor="middle" class="dark v3t"><tspan x="200" dy="-6" class="lw">WHY</tspan><tspan x="200" dy="26" class="lb">NOW</tspan></text>
         </g>
         <g class="vc center" data-why="all" tabindex="0" role="button" aria-pressed="false" aria-label="All three: join SVWB">
-          <circle cx="200" cy="170" r="30" fill="#FFFFFF"/>
+          <circle cx="200" cy="170" r="30" style="fill:var(--v-center)"/>
           <text x="200" y="175" text-anchor="middle" class="dark small">SVWB</text>
         </g>
       </svg><div class="venn-panel" id="vennPop" role="dialog" aria-label="Details" hidden><button class="arrow pop-close" id="vennClose" type="button" aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
@@ -509,7 +575,7 @@ footer a{color:var(--sky-deep)}
         <h2>What the form asks</h2>
         <ul class="check">
           <li>Name, email, university, college, major, and class year</li>
-          <li>Sectors you're interested in (AI, data, cybersecurity, fintech, and more)</li>
+          <li>Sectors you're interested in (Finance, Operations, Marketing, AI, Data, Cybersecurity and more)</li>
           <li>Skills and tools you already use</li>
           <li>Whether to join the talent pool (you can leave anytime)</li>
           <li>Optional background questions, reported only as group totals</li>
@@ -530,6 +596,7 @@ footer a{color:var(--sky-deep)}
 <!-- ================= PARTNERS ================= -->
 <div id="view-partners" data-page="partners" hidden>
   <section class="hero">
+    <svg class="sunset" viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 80 C 300 10, 900 10, 1200 80 Z" style="fill:var(--gold)" opacity=".18"/><path d="M0 80 C 350 35, 850 35, 1200 80 Z" style="fill:var(--sky)" opacity=".14"/></svg>
     <div class="wrap" style="grid-template-columns:1fr">
       <div class="stack" style="gap:20px">
         <span class="eyebrow">Future partners</span>
@@ -580,6 +647,7 @@ footer a{color:var(--sky-deep)}
 <!-- ================= RECRUITING ================= -->
 <div id="view-recruiting" data-page="recruiting" hidden>
   <section class="hero">
+    <svg class="sunset" viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 80 C 300 10, 900 10, 1200 80 Z" style="fill:var(--gold)" opacity=".18"/><path d="M0 80 C 350 35, 850 35, 1200 80 Z" style="fill:var(--sky)" opacity=".14"/></svg>
     <div class="wrap" style="grid-template-columns:1fr">
       <div class="stack" style="gap:20px">
         <span class="eyebrow">Recruiting</span>
@@ -593,9 +661,9 @@ footer a{color:var(--sky-deep)}
     <div class="wrap stack" style="gap:28px">
       <h2>What you see in the talent pool</h2>
       <div class="grid3">
-        <div class="tile"><div class="art"><svg viewBox="0 0 120 80" aria-hidden="true"><rect x="14" y="12" width="92" height="56" rx="8" fill="#FFFFFF" stroke="#2F6FB8" stroke-width="3"/><circle cx="38" cy="36" r="10" fill="#2F6FB8"/><rect x="24" y="50" width="28" height="6" rx="3" fill="#1E1B4B"/><rect x="60" y="28" width="36" height="5" rx="2.5" fill="#1E1B4B"/><rect x="60" y="38" width="28" height="5" rx="2.5" fill="#F5A524"/><rect x="60" y="48" width="32" height="5" rx="2.5" fill="#DDE8F5"/></svg></div><h3>Student profiles</h3><p>Major, class year, skills, and tools</p></div>
-        <div class="tile"><div class="art"><svg viewBox="0 0 120 80" aria-hidden="true"><rect x="12" y="14" width="44" height="24" rx="5" fill="#2F6FB8"/><rect x="64" y="14" width="44" height="24" rx="5" fill="#1E1B4B"/><rect x="12" y="44" width="44" height="24" rx="5" fill="#F5A524"/><rect x="64" y="44" width="44" height="24" rx="5" fill="#DDE8F5"/></svg></div><h3>Grouped by sector</h3><p>AI, data, cybersecurity, fintech, and more</p></div>
-        <div class="tile"><div class="art"><svg viewBox="0 0 120 80" aria-hidden="true"><path d="M18 62h84" stroke="#1E1B4B" stroke-width="3" stroke-linecap="round"/><circle cx="30" cy="62" r="7" fill="#2F6FB8"/><circle cx="60" cy="62" r="7" fill="#2F6FB8"/><circle cx="90" cy="62" r="7" fill="#F5A524"/><rect x="20" y="16" width="80" height="30" rx="6" fill="#FFFFFF" stroke="#2F6FB8" stroke-width="3"/><path d="M30 31h40" stroke="#1E1B4B" stroke-width="4" stroke-linecap="round"/></svg></div><h3>Project history</h3><p>SVWB projects, roles, and partner ratings</p></div>
+        <div class="tile"><div class="art"><svg viewBox="0 0 120 80" aria-hidden="true"><rect x="14" y="12" width="92" height="56" rx="8" stroke-width="3" style="fill:var(--a-panel);stroke:var(--a-sky)"/><circle cx="38" cy="36" r="10" style="fill:var(--a-sky)"/><rect x="24" y="50" width="28" height="6" rx="3" style="fill:var(--a-cream)"/><rect x="60" y="28" width="36" height="5" rx="2.5" style="fill:var(--a-cream)"/><rect x="60" y="38" width="28" height="5" rx="2.5" fill="#C9A24D"/><rect x="60" y="48" width="32" height="5" rx="2.5" fill="#E3E5EE"/></svg></div><h3>Student profiles</h3><p>Major, class year, skills, and tools</p></div>
+        <div class="tile"><div class="art"><svg viewBox="0 0 120 80" aria-hidden="true"><rect x="12" y="14" width="44" height="24" rx="5" style="fill:var(--a-sky)"/><rect x="64" y="14" width="44" height="24" rx="5" style="fill:var(--a-cream)"/><rect x="12" y="44" width="44" height="24" rx="5" fill="#C9A24D"/><rect x="64" y="44" width="44" height="24" rx="5" fill="#E3E5EE"/></svg></div><h3>Grouped by sector</h3><p>Finance, Operations, Marketing, AI, Data, Cybersecurity and more</p></div>
+        <div class="tile"><div class="art"><svg viewBox="0 0 120 80" aria-hidden="true"><path d="M18 62h84" stroke-width="3" stroke-linecap="round" style="stroke:var(--a-cream)"/><circle cx="30" cy="62" r="7" style="fill:var(--a-sky)"/><circle cx="60" cy="62" r="7" style="fill:var(--a-sky)"/><circle cx="90" cy="62" r="7" fill="#C9A24D"/><rect x="20" y="16" width="80" height="30" rx="6" stroke-width="3" style="fill:var(--a-panel);stroke:var(--a-sky)"/><path d="M30 31h40" stroke-width="4" stroke-linecap="round" style="stroke:var(--a-cream)"/></svg></div><h3>Project history</h3><p>SVWB projects, roles, and partner ratings</p></div>
       </div>
     </div>
   </section>
@@ -636,7 +704,8 @@ footer a{color:var(--sky-deep)}
 
 <!-- ================= DASHBOARD ================= -->
 <div id="view-dashboard" data-page="dashboard" hidden>
-  <section>
+  <section class="has-sunset">
+    <svg class="sunset" viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 80 C 300 10, 900 10, 1200 80 Z" style="fill:var(--gold)" opacity=".18"/><path d="M0 80 C 350 35, 850 35, 1200 80 Z" style="fill:var(--sky)" opacity=".14"/></svg>
     <div class="wrap stack" style="gap:28px">
       <div class="dash-head">
         <div class="stack" style="gap:10px">
@@ -655,10 +724,10 @@ footer a{color:var(--sky-deep)}
           <figure class="chart">
             <figcaption><h3>Students by major and university affiliation</h3><span class="note">Layout preview: bar lengths are illustrative, not data.</span></figcaption>
             <div class="legend" aria-label="University affiliation">
-              <span><i style="background:#1E1B4B"></i>[University A]</span>
-              <span><i style="background:#2F6FB8"></i>[University B]</span>
-              <span><i style="background:#F5A524"></i>[University C]</span>
-              <span><i style="background:#B9C6D8"></i>Other universities</span>
+              <span><i style="background:var(--a-cream)"></i>[University A]</span>
+              <span><i style="background:var(--a-sky)"></i>[University B]</span>
+              <span><i style="background:#C9A24D"></i>[University C]</span>
+              <span><i style="background:#5D6690"></i>Other universities</span>
             </div>
             <div class="bars" id="majorChart"></div>
             <div class="axis"><span></span><span>Number of students</span></div>
@@ -701,6 +770,7 @@ footer a{color:var(--sky-deep)}
 <!-- ================= DONATE ================= -->
 <div id="view-donate" data-page="donate" hidden>
   <section class="hero">
+    <svg class="sunset" viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 80 C 300 10, 900 10, 1200 80 Z" style="fill:var(--gold)" opacity=".18"/><path d="M0 80 C 350 35, 850 35, 1200 80 Z" style="fill:var(--sky)" opacity=".14"/></svg>
     <div class="wrap" style="grid-template-columns:1fr">
       <div class="stack" style="gap:20px">
         <span class="eyebrow">Donate</span>
@@ -714,10 +784,10 @@ footer a{color:var(--sky-deep)}
     <div class="wrap stack" style="gap:28px">
       <h2>What your gift supports</h2>
       <div class="grid4">
-        <div class="tile"><div class="art"><svg viewBox="0 0 120 80" aria-hidden="true"><rect x="16" y="16" width="88" height="50" rx="8" fill="#FFFFFF" stroke="#2F6FB8" stroke-width="3"/><path d="M30 52l16-16 12 10 20-22 12 10" fill="none" stroke="#F5A524" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Student projects</h3><p>Tools, data, and software teams need</p></div>
-        <div class="tile"><div class="art"><svg viewBox="0 0 120 80" aria-hidden="true"><circle cx="44" cy="30" r="12" fill="#1E1B4B"/><circle cx="78" cy="34" r="10" fill="#2F6FB8"/><path d="M22 70c2-14 12-22 22-22s20 8 22 22zM60 70c2-11 10-18 18-18s16 7 18 18z" fill="#F5A524"/></svg></div><h3>Mentorship</h3><p>Connecting students with industry mentors</p></div>
-        <div class="tile"><div class="art"><svg viewBox="0 0 120 80" aria-hidden="true"><rect x="20" y="20" width="80" height="44" rx="6" fill="#2F6FB8"/><path d="M20 32h80" stroke="#1E1B4B" stroke-width="4"/><circle cx="40" cy="48" r="6" fill="#F5A524"/><circle cx="60" cy="48" r="6" fill="#FFFFFF"/><circle cx="80" cy="48" r="6" fill="#F5A524"/></svg></div><h3>Events</h3><p>Workshops, hackathons, and showcases</p></div>
-        <div class="tile"><div class="art"><svg viewBox="0 0 120 80" aria-hidden="true"><circle cx="60" cy="40" r="28" fill="#FFFFFF" stroke="#1E1B4B" stroke-width="3"/><ellipse cx="60" cy="40" rx="12" ry="28" fill="none" stroke="#2F6FB8" stroke-width="2.5"/><path d="M32 40h56" stroke="#2F6FB8" stroke-width="2.5"/><path d="M24 58c20 10 56 6 74-22" fill="none" stroke="#F5A524" stroke-width="4" stroke-linecap="round"/></svg></div><h3>Access for all</h3><p>Opening doors for students from every background</p></div>
+        <div class="tile"><div class="art"><svg viewBox="0 0 120 80" aria-hidden="true"><rect x="16" y="16" width="88" height="50" rx="8" stroke-width="3" style="fill:var(--a-panel);stroke:var(--a-sky)"/><path d="M30 52l16-16 12 10 20-22 12 10" fill="none" stroke="#C9A24D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Student projects</h3><p>Tools, data, and software teams need</p></div>
+        <div class="tile"><div class="art"><svg viewBox="0 0 120 80" aria-hidden="true"><circle cx="44" cy="30" r="12" style="fill:var(--a-cream)"/><circle cx="78" cy="34" r="10" style="fill:var(--a-sky)"/><path d="M22 70c2-14 12-22 22-22s20 8 22 22zM60 70c2-11 10-18 18-18s16 7 18 18z" fill="#C9A24D"/></svg></div><h3>Mentorship</h3><p>Connecting students with industry mentors</p></div>
+        <div class="tile"><div class="art"><svg viewBox="0 0 120 80" aria-hidden="true"><rect x="20" y="20" width="80" height="44" rx="6" style="fill:var(--a-sky)"/><path d="M20 32h80" stroke-width="4" style="stroke:var(--a-cream)"/><circle cx="40" cy="48" r="6" fill="#C9A24D"/><circle cx="60" cy="48" r="6" style="fill:var(--a-panel)"/><circle cx="80" cy="48" r="6" fill="#C9A24D"/></svg></div><h3>Events</h3><p>Workshops, hackathons, and showcases</p></div>
+        <div class="tile"><div class="art"><svg viewBox="0 0 120 80" aria-hidden="true"><circle cx="60" cy="40" r="28" stroke-width="3" style="fill:var(--a-panel);stroke:var(--a-cream)"/><ellipse cx="60" cy="40" rx="12" ry="28" fill="none" stroke-width="2.5" style="stroke:var(--a-sky)"/><path d="M32 40h56" stroke-width="2.5" style="stroke:var(--a-sky)"/><path d="M24 58c20 10 56 6 74-22" fill="none" stroke="#C9A24D" stroke-width="4" stroke-linecap="round"/></svg></div><h3>Access for all</h3><p>Opening doors for students from every background</p></div>
       </div>
     </div>
   </section>
@@ -739,14 +809,27 @@ footer a{color:var(--sky-deep)}
 <footer>
   <div class="wrap">
     <div class="foot-brand">
-      <a class="foot-logo" href="#home" aria-label="Silicon Valley Without Borders, home"><img src="logo.png" alt="Silicon Valley Without Borders"></a>
+      <a class="foot-logo" href="#home" aria-label="Silicon Valley Without Borders, home"><img src="logo-light.png" alt="Silicon Valley Without Borders"></a>
       <span>TALENT has no borders, Neither do WE!</span>
     </div>
-    <a class="yt" href="https://www.youtube.com/@internationalconsultingnet7527" target="_blank" rel="noopener" aria-label="SVWB on YouTube" title="SVWB on YouTube"><svg viewBox="0 0 28 20" width="44" height="32" aria-hidden="true"><rect width="28" height="20" rx="5" fill="#FF0000"/><path d="M11 5.5v9l8-4.5z" fill="#FFFFFF"/></svg></a>
+    <a class="yt" href="https://www.youtube.com/@internationalconsultingnet7527" target="_blank" rel="noopener" aria-label="SVWB on YouTube" title="SVWB on YouTube"><svg viewBox="0 0 28 20" width="44" height="32" aria-hidden="true"><rect width="28" height="20" rx="5" fill="#FF0000"/><path d="M11 5.5v9l8-4.5z" style="fill:var(--a-panel)"/></svg></a>
   </div>
 </footer>
 
 <script>
+/* ---- Light / dark mode ---- */
+function applyTheme(t){
+  document.documentElement.dataset.theme = t;
+  document.querySelectorAll('.brand img,.foot-logo img').forEach(i => i.src = t === 'light' ? 'logo.png' : 'logo-light.png');
+  const b = document.getElementById('themeBtn');
+  if (b) b.setAttribute('aria-label', t === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
+}
+applyTheme(document.documentElement.dataset.theme || 'dark');
+document.getElementById('themeBtn').addEventListener('click', () => {
+  const t = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+  applyTheme(t);
+  try { localStorage.setItem('svwb-theme', t); } catch (e) {}
+});
 /* ---- Settings: paste real links here ---- */
 const FORMS = {
   students: "",   // Google Form link for student registration
@@ -863,7 +946,7 @@ const ag = document.getElementById("alumni-grid");
 ALUMNI.forEach(a => {
   const el = document.createElement("article");
   el.className = "alum";
-  el.innerHTML = `<div class="face"><svg width="36" height="36" viewBox="0 0 24 24" fill="#2F6FB8" aria-hidden="true"><circle cx="12" cy="8" r="4.2"/><path d="M3.5 21c.8-4.4 4.3-7 8.5-7s7.7 2.6 8.5 7z"/></svg></div><strong>${a.name}</strong><span class="meta">${a.role}</span><span class="company">${a.company}</span>${a.sector ? `<span class="sector">${a.sector}</span>` : ""}`;
+  el.innerHTML = `<div class="face"><svg width="36" height="36" viewBox="0 0 24 24" aria-hidden="true" style="fill:var(--a-sky)"><circle cx="12" cy="8" r="4.2"/><path d="M3.5 21c.8-4.4 4.3-7 8.5-7s7.7 2.6 8.5 7z"/></svg></div><strong>${a.name}</strong><span class="meta">${a.role}</span><span class="company">${a.company}</span>${a.sector ? `<span class="sector">${a.sector}</span>` : ""}`;
   ag.appendChild(el);
 });
 const alumPrev = document.getElementById("alumPrev"), alumNext = document.getElementById("alumNext");
@@ -897,7 +980,7 @@ lb.addEventListener("click", e => { if (e.target === lb) lb.close(); });
 lb.addEventListener("close", () => document.querySelectorAll(".lb-video iframe").forEach(f => f.remove()));
 
 /* dashboard: students by major and university (illustrative shapes until data connects) */
-const UNIS = [["[University A]","#1E1B4B"],["[University B]","#2F6FB8"],["[University C]","#F5A524"],["Other universities","#B9C6D8"]];
+const UNIS = [["[University A]","var(--a-cream)"],["[University B]","var(--a-sky)"],["[University C]","#C9A24D"],["Other universities","#5D6690"]];
 const MAJORS = [["Computer Science",[34,22,14,8]],["Information Science",[30,16,10,6]],["Data Science",[24,14,10,6]],["Business",[16,12,8,6]],["Engineering",[14,10,6,4]],["Other majors",[10,8,6,6]]];
 const mc = document.getElementById("majorChart");
 MAJORS.forEach(([m, parts]) => {

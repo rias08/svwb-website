@@ -4,6 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Silicon Valley Without Borders</title>
+<meta name="description" content="Silicon Valley Without Borders connects students, companies, and mentors on real tech and business consulting projects.">
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="apple-touch-icon" href="logo.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Silicon Valley Without Borders">
+<meta property="og:description" content="Talent has no borders, neither do we. Students, companies, and mentors building real projects together.">
+<meta property="og:url" content="https://rias08.github.io/svwb-website/">
+<meta property="og:image" content="https://rias08.github.io/svwb-website/logo.png">
+<meta name="twitter:card" content="summary">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;0,700;0,800;1,800&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500;600&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
 <style>
@@ -341,6 +350,25 @@ body,header,footer,.tile,.card,.impact-item{transition:background-color .3s,colo
 .sf-field input:focus,.sf-field select:focus{outline:3px solid var(--sky);outline-offset:1px;border-color:var(--sky)}
 .sf-form button{cursor:pointer}
 .sf-card::after{display:none}
+/* phone menu */
+.menu-btn{display:none;width:44px;height:44px;flex:0 0 44px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--ink);place-items:center;cursor:pointer}
+.menu-btn .m-close{display:none}
+.menu-btn[aria-expanded="true"] .m-open{display:none}
+.menu-btn[aria-expanded="true"] .m-close{display:block}
+@media (max-width:760px){
+  .brand img{height:48px}
+  .menu-btn{display:grid;order:2}
+  .theme-btn{order:1;margin-left:auto}
+  .bar{flex-wrap:wrap;gap:8px}
+  .bar nav{order:3;flex-basis:100%;margin-left:0;display:none;padding-bottom:10px}
+  .bar nav.open{display:block}
+  .bar nav ul{flex-direction:column;gap:2px}
+  .bar nav a{width:100%;border-radius:12px}
+}
+/* thank-you banner after a Salesforce form */
+.thanks{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:30;width:min(520px,calc(100% - 32px));background:var(--surface);color:var(--ink);border:1px solid var(--line);border-left:5px solid var(--gold);border-radius:14px;padding:14px 16px;box-shadow:0 14px 30px rgba(4,7,22,.25);display:flex;gap:12px;align-items:flex-start}
+.thanks strong{font-family:var(--display)}
+.thanks button{margin-left:auto;background:none;border:0;color:var(--muted);font-size:1.3rem;line-height:1;cursor:pointer;min-width:32px;min-height:32px}
 </style>
 <script>
 (function(){var t;try{t=localStorage.getItem('svwb-theme')}catch(e){}
@@ -353,13 +381,16 @@ document.documentElement.dataset.theme=t;})();
 <header>
   <div class="wrap bar">
     <a class="brand" href="#home" aria-label="Silicon Valley Without Borders, home"><img src="logo-light.png" alt="Silicon Valley Without Borders"></a>
-    <nav aria-label="Main">
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path class="m-open" d="M4 7h16M4 12h16M4 17h16"/><path class="m-close" d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <nav aria-label="Main" id="mainNav">
       <ul>
         <li><a href="#home" data-view="home">Home</a></li>
         <li><a href="#students" data-view="students">Students</a></li>
         <li><a href="#partners" data-view="partners">Partners</a></li>
         <li><a href="#recruiting" data-view="recruiting">Recruiting</a></li>
-        <li><a href="#dashboard" data-view="dashboard">Dashboard</a></li>
+        <li><a href="#dashboard" data-view="dashboard">Data access</a></li>
         <li><a href="#donate" data-view="donate" class="nav-donate">Donate</a></li>
       </ul>
     </nav>
@@ -599,7 +630,7 @@ document.documentElement.dataset.theme=t;})();
       <h2>Questions</h2>
       <details><summary>Do I need experience?</summary><p>No. Teams mix experience levels, and mentors help you learn as you go.</p></details>
       <details><summary>How much time does it take?</summary><p>[Add your expected weekly time commitment here.]</p></details>
-      <details><summary>Who sees my information?</summary><p>Only SVWB staff. Public numbers on our site are anonymous group totals. Recruiters see your profile only if you join the talent pool.</p></details>
+      <details><summary>Who sees my information?</summary><p>Only SVWB staff. Any numbers we share publicly are anonymous group totals. Recruiters see your profile only if you join the talent pool.</p></details>
     </div>
   </section>
 </div>
@@ -664,7 +695,28 @@ document.documentElement.dataset.theme=t;})();
         <span class="eyebrow">Recruiting</span>
         <h1>Hire students who have already shipped real work</h1>
         <p class="lede">Our talent pool includes current student members who opted in to be contacted by approved recruiters.</p>
-        <div class="row"><a class="btn primary" data-form="recruiters" href="#" target="_blank" rel="noopener">Request recruiter access</a></div>
+        <div class="row"><a class="btn primary" href="#recruiter-access">Request recruiter access</a></div>
+      </div>
+    </div>
+  </section>
+  <section style="padding-bottom:0">
+    <div class="wrap">
+      <div class="card sf-card" id="recruiter-access">
+        <div class="card-top"><div class="stack" style="gap:4px"><h3>Request recruiter access</h3><p>Tell us who you are and we'll verify your company before sharing any student profiles. We'll follow up by email.</p></div><span class="access restricted">Approved recruiters</span></div>
+        <form class="sf-form" action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&amp;orgId=00Dfj00000kkucb" method="POST">
+          <input type="hidden" name="oid" value="00Dfj00000kkucb">
+          <input type="hidden" name="retURL" value="https://rias08.github.io/svwb-website/#thanks">
+          <input type="hidden" name="lead_source" value="Web">
+          <div class="sf-grid">
+            <label class="sf-field"><span>First name</span><input id="rc_first_name" name="first_name" type="text" maxlength="40" autocomplete="given-name" required></label>
+            <label class="sf-field"><span>Last name</span><input id="rc_last_name" name="last_name" type="text" maxlength="80" autocomplete="family-name" required></label>
+            <label class="sf-field"><span>Email</span><input id="rc_email" name="email" type="email" maxlength="80" autocomplete="email" required></label>
+            <label class="sf-field"><span>Company</span><input id="rc_company" name="company" type="text" maxlength="40" autocomplete="organization" required></label>
+            <label class="sf-field"><span>Country</span><select id="rc_country" name="country_code" autocomplete="country"><option value="">Select a country</option></select></label>
+            <label class="sf-field" id="rc_state_wrap" hidden><span>State / province</span><select id="rc_state" name="state_code"><option value="">Select one</option></select></label>
+          </div>
+          <div class="row" style="gap:12px;align-items:center"><button class="btn primary" type="submit" name="submit">Request recruiter access</button><span class="note">Sent securely to SVWB's Salesforce.</span></div>
+        </form>
       </div>
     </div>
   </section>
@@ -722,7 +774,7 @@ document.documentElement.dataset.theme=t;})();
           <div class="card-top"><div class="stack" style="gap:4px"><h3>Request dashboard access</h3><p>Partners, recruiters, and sponsors can ask for access to the full dashboard, including staff-only data. We'll follow up by email.</p></div><span class="access restricted">Staff only</span></div>
           <form class="sf-form" action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&amp;orgId=00Dfj00000kkucb" method="POST">
             <input type="hidden" name="oid" value="00Dfj00000kkucb">
-            <input type="hidden" name="retURL" value="https://rias08.github.io/svwb-website/#home">
+            <input type="hidden" name="retURL" value="https://rias08.github.io/svwb-website/#thanks">
             <input type="hidden" name="lead_source" value="Web">
             <div class="sf-grid">
               <label class="sf-field"><span>First name</span><input id="sf_first_name" name="first_name" type="text" maxlength="40" autocomplete="given-name" required></label>
@@ -801,23 +853,24 @@ document.getElementById('themeBtn').addEventListener('click', () => {
   applyTheme(t);
   try { localStorage.setItem('svwb-theme', t); } catch (e) {}
 });
-/* ---- Dashboard access form (Salesforce Web-to-Lead) ---- */
+/* ---- Salesforce Web-to-Lead forms (Data access and Recruiting) ---- */
 (function(){
   const CODES = "AF AX AL DZ AD AO AI AQ AG AR AM AW AU AT AZ BS BH BD BB BY BE BZ BJ BM BT BO BQ BA BW BV BR IO BN BG BF BI KH CM CA CV KY CF TD CL CN CX CC CO KM CG CD CK CR CI HR CW CY CZ DK DJ DM DO EC EG SV GQ ER EE SZ ET FK FO FJ FI FR GF PF TF GA GM GE DE GH GI GR GL GD GP GT GG GN GW GY HT HM VA HN HU IS IN ID IQ IE IM IL IT JM JP JE JO KZ KE KI KR XK KW KG LA LV LB LS LR LY LI LT LU MO MG MW MY MV ML MT MQ MR MU YT MX MD MC MN ME MS MA MZ MM NA NR NP NL NC NZ NI NE NG NU NF MK NO OM PK PS PA PG PY PE PH PN PL PT QA RE RO RU RW BL SH KN LC MF PM VC WS SM ST SA SN RS SC SL SG SX SK SI SB SO ZA GS SS ES LK SR SJ SE CH TW TJ TZ TH TL TG TK TO TT TN TR TM TC TV UG UA AE GB US UY UZ VU VE VN VG WF EH YE ZM ZW".split(" ");
   const STATES = {
     US: {AL:"Alabama",AK:"Alaska",AZ:"Arizona",AR:"Arkansas",CA:"California",CO:"Colorado",CT:"Connecticut",DE:"Delaware",DC:"District of Columbia",FL:"Florida",GA:"Georgia",HI:"Hawaii",ID:"Idaho",IL:"Illinois",IN:"Indiana",IA:"Iowa",KS:"Kansas",KY:"Kentucky",LA:"Louisiana",ME:"Maine",MD:"Maryland",MA:"Massachusetts",MI:"Michigan",MN:"Minnesota",MS:"Mississippi",MO:"Missouri",MT:"Montana",NE:"Nebraska",NV:"Nevada",NH:"New Hampshire",NJ:"New Jersey",NM:"New Mexico",NY:"New York",NC:"North Carolina",ND:"North Dakota",OH:"Ohio",OK:"Oklahoma",OR:"Oregon",PA:"Pennsylvania",RI:"Rhode Island",SC:"South Carolina",SD:"South Dakota",TN:"Tennessee",TX:"Texas",UT:"Utah",VT:"Vermont",VA:"Virginia",WA:"Washington",WV:"West Virginia",WI:"Wisconsin",WY:"Wyoming"},
     CA: {AB:"Alberta",BC:"British Columbia",MB:"Manitoba",NB:"New Brunswick",NL:"Newfoundland and Labrador",NS:"Nova Scotia",NT:"Northwest Territories",NU:"Nunavut",ON:"Ontario",PE:"Prince Edward Island",QC:"Quebec",SK:"Saskatchewan",YT:"Yukon"}
   };
-  const country = document.getElementById("sf_country"), state = document.getElementById("sf_state"), wrap = document.getElementById("sf_state_wrap");
-  if (!country) return;
   let names; try { names = new Intl.DisplayNames(["en"], {type:"region"}); } catch (e) {}
-  CODES.map(c => [c, (names && names.of(c)) || c]).sort((a,b) => a[1].localeCompare(b[1]))
-    .forEach(([c,n]) => country.add(new Option(n, c)));
-  country.addEventListener("change", () => {
-    const list = STATES[country.value];
-    state.length = 1; state.value = "";
-    wrap.hidden = !list;
-    if (list) Object.entries(list).forEach(([c,n]) => state.add(new Option(n, c)));
+  const sorted = CODES.map(c => [c, (names && names.of(c)) || c]).sort((a,b) => a[1].localeCompare(b[1]));
+  document.querySelectorAll(".sf-form").forEach(form => {
+    const country = form.querySelector('[name="country_code"]'), state = form.querySelector('[name="state_code"]'), wrap = state.closest(".sf-field");
+    sorted.forEach(([c,n]) => country.add(new Option(n, c)));
+    country.addEventListener("change", () => {
+      const list = STATES[country.value];
+      state.length = 1; state.value = "";
+      wrap.hidden = !list;
+      if (list) Object.entries(list).forEach(([c,n]) => state.add(new Option(n, c)));
+    });
   });
 })();
 /* ---- Settings: paste real links here ---- */
@@ -829,15 +882,15 @@ const FORMS = {
 };
 /* Videos, newest first. Add a YouTube link to each "url" when ready. */
 const VIDEOS = [
-  { title: "[New York: 2019]", url: "https://youtu.be/hyYJ3cl7lAc?si=naj4m71iIhqSozk9" },
-  { title: "[South Korea: 2019]", url: "https://youtu.be/iu3Funrdx7I?si=ihKmMHp5HKvAVeVj" },
-  { title: "[Belo Horizonte: 2018]", url: "https://youtu.be/wF6d0PpNvWE?si=ETOyMYCTudJgVZft" },
-  { title: "[Shanghai: 2017]", url: "https://youtu.be/SYwVMtYDmxk?si=AtYqWo1U9NBhp9kP" },
-  { title: "[New York: 2016]", url: "https://youtu.be/PTx-h8aJVK0?si=utEP8XpqayDymjzM" },
-  { title: "[South Korea: 2016]", url: "https://youtu.be/x-JeDasqfUM?si=BgJB-adAPk0Hni3Y" },
-  { title: "[Stockholm: 2015]", url: "https://youtu.be/Une8bVG4xeo?si=9PxOv-twWE7DZjVx" },
-  { title: "[San Francisco: 2014]", url: "https://youtu.be/8BsDK-BpMq4?si=UVqI9UfeFHTSjLln" },
-  { title: "[Israel: 2013]", url: "https://youtu.be/qPoIODC7BAU?si=pAdMm6fYhQGY8X06" },
+  { title: "New York: 2019", url: "https://youtu.be/hyYJ3cl7lAc?si=naj4m71iIhqSozk9" },
+  { title: "South Korea: 2019", url: "https://youtu.be/iu3Funrdx7I?si=ihKmMHp5HKvAVeVj" },
+  { title: "Belo Horizonte: 2018", url: "https://youtu.be/wF6d0PpNvWE?si=ETOyMYCTudJgVZft" },
+  { title: "Shanghai: 2017", url: "https://youtu.be/SYwVMtYDmxk?si=AtYqWo1U9NBhp9kP" },
+  { title: "New York: 2016", url: "https://youtu.be/PTx-h8aJVK0?si=utEP8XpqayDymjzM" },
+  { title: "South Korea: 2016", url: "https://youtu.be/x-JeDasqfUM?si=BgJB-adAPk0Hni3Y" },
+  { title: "Stockholm: 2015", url: "https://youtu.be/Une8bVG4xeo?si=9PxOv-twWE7DZjVx" },
+  { title: "San Francisco: 2014", url: "https://youtu.be/8BsDK-BpMq4?si=UVqI9UfeFHTSjLln" },
+  { title: "Israel: 2013", url: "https://youtu.be/qPoIODC7BAU?si=pAdMm6fYhQGY8X06" },
 ];
 
 /* forms */
@@ -859,13 +912,39 @@ function show(view) {
   document.querySelectorAll("[data-page]").forEach(el => el.hidden = el.dataset.page !== view);
   document.querySelectorAll("nav a").forEach(a => { if (a.dataset.view === view) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
 }
+/* go to a page, or to a section inside a page (like #recruiter-access) */
+function goTo(id, smooth) {
+  if (views.includes(id)) { show(id); window.scrollTo(0, 0); return true; }
+  const el = id && document.getElementById(id), page = el && el.closest("[data-page]");
+  if (page) { show(page.dataset.page); el.scrollIntoView({behavior: smooth ? "smooth" : "auto", block: "start"}); return true; }
+  return false;
+}
+const menuBtn = document.getElementById("menuBtn"), mainNav = document.getElementById("mainNav");
+function closeMenu() { mainNav.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false"); menuBtn.setAttribute("aria-label", "Open menu"); }
+menuBtn.addEventListener("click", () => {
+  const open = !mainNav.classList.contains("open");
+  mainNav.classList.toggle("open", open);
+  menuBtn.setAttribute("aria-expanded", String(open));
+  menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+});
 document.addEventListener("click", e => {
   const a = e.target.closest('a[href^="#"]');
   if (!a) return;
   const id = a.getAttribute("href").slice(1);
-  if (views.includes(id)) { e.preventDefault(); show(id); window.scrollTo(0, 0); try { history.replaceState(null, "", "#" + id); } catch (_) {} }
+  if (goTo(id, true)) { e.preventDefault(); closeMenu(); try { history.replaceState(null, "", "#" + id); } catch (_) {} }
 });
-show((location.hash || "#home").slice(1));
+/* thank-you message when Salesforce sends someone back after a form */
+const startId = (location.hash || "#home").slice(1);
+if (startId === "thanks") {
+  show("home");
+  try { history.replaceState(null, "", "#home"); } catch (_) {}
+  const t = document.createElement("div");
+  t.className = "thanks"; t.setAttribute("role", "status");
+  t.innerHTML = '<div><strong>Thanks, we got your request.</strong><br>Our team will follow up by email.</div><button type="button" aria-label="Close">&times;</button>';
+  t.querySelector("button").addEventListener("click", () => t.remove());
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 9000);
+} else if (!goTo(startId)) show("home");
 
 /* carousel: embedded YouTube players */
 const ytId = u => { const m = (u || "").match(/(?:youtu\.be\/|v=|embed\/)([\w-]{11})/); return m ? m[1] : ""; };
